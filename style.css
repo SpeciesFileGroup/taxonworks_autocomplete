@@ -1,0 +1,35 @@
+.taxonworks_autocomplete {
+  position: relative;
+}
+
+.taxonworks_autocomplete__list {
+  display: none;
+  position: absolute;
+  top: 100%;
+  list-style: none;
+  margin: .5rem 0 0 0;
+  padding: 0;
+  box-shadow: 0 3px 6px rgb(149 157 165 / 15%);
+  border: 1px solid rgba(33,33,33,.07);
+  border-radius: .6rem;
+  z-index: 1;
+  box-sizing: border-box;
+  max-height: 250px;
+  overflow-y: scroll;
+}
+
+.taxonworks_autocomplete__row {
+  padding: .3rem .5rem;
+}
+
+.taxonworks_autocomplete__row:hover {
+  background-color: #FAFAFA;
+}
+
+.taxonworks_autocomplete__input:focus ~ .taxonworks_autocomplete__list {
+  display: block;
+}
+
+.taxonworks_autocomplete .taxonworks_autocomplete__list:hover {
+  display: block;
+}
