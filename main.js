@@ -1,7 +1,7 @@
 import './style.css'
-import { Autocomplete } from './src/autocomplete.js'
+import { TWAutocomplete } from './src/autocomplete.js'
 
-/* const autocomplete = new Autocomplete('#taxonworks-autocomplete', {
+const autocomplete = new TWAutocomplete('#taxonworks-autocomplete', {
   resource: 'taxon_names',
   url: 'http://localhost:3000',
   api_version: 1,
@@ -9,6 +9,6 @@ import { Autocomplete } from './src/autocomplete.js'
   events: {
     select: item => { console.log(item) }
   }
-}) */
+})
 
-Autocomplete.discover()
+TWAutocomplete.discover()

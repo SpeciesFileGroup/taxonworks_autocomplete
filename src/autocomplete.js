@@ -5,7 +5,7 @@ import { API_PARAMETERS } from './constants/parameters.js'
 import { API_VERSION_PATH } from './constants/apiRoutes.js'
 import createSpinnerElement from './utils/spinnerElement.js'
 
-class Autocomplete {
+export default class TWAutocomplete {
   constructor (selector, options) {
     const element = typeof selector === 'string'
       ? document.querySelector(selector)
@@ -170,12 +170,11 @@ class Autocomplete {
     const elementsList = [...elements]
   
     return elementsList.map(element => 
-      new Autocomplete(element, Autocomplete.getOptionsFromElement(element))
+      new TWAutocomplete(element, TWAutocomplete.getOptionsFromElement(element))
     )
   }
-
 }
 
 export {
-  Autocomplete
+  TWAutocomplete
 }
