@@ -1,5 +1,15 @@
 .taxonworks_autocomplete {
   position: relative;
+  width: 500px;
+}
+
+.taxonworks_autocomplete__input {
+  width: 100%;
+  height: 28px;
+  border-radius: .3rem;
+  border: 1px solid #d8d8d8;
+  padding: 5px 8px;
+  box-sizing: border-box;
 }
 
 .taxonworks_autocomplete__list {
@@ -32,4 +42,14 @@
 
 .taxonworks_autocomplete .taxonworks_autocomplete__list:hover {
   display: block;
+}
+
+.taxonworks_autocomplete__spinner {
+  display: none;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 4px;
+  right: 6px;
+  background-color: #FFFFFF;
 }

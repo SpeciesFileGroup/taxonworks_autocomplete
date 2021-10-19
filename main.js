@@ -11,4 +11,4 @@ import { Autocomplete } from './src/autocomplete.js'
   }
 }) */
 
-Autocomplete.discover('#taxonworks-autocomplete')
+Autocomplete.discover()

@@ -3,6 +3,7 @@ import { DEFAULT_OPTIONS } from './constants/options.js'
 import { ATTRIBUTES } from './constants/attributes.js'
 import { API_PARAMETERS } from './constants/parameters.js'
 import { API_VERSION_PATH } from './constants/apiRoutes.js'
+import createSpinnerElement from './utils/spinnerElement.js'
 
 class Autocomplete {
   constructor (selector, options) {
@@ -12,7 +13,7 @@ class Autocomplete {
 
     if (element) {
       this.setOptions(options)
-      this.initAutocomplete(element)
+      this.init(element)
     }
   }
 
@@ -23,8 +24,9 @@ class Autocomplete {
     }
   }
 
-  initAutocomplete (inputElement) {
+  init (inputElement) {
     const autocompleteElement = document.createElement('div')
+    const spinnerElement = createSpinnerElement()
 
     autocompleteElement.classList.add('taxonworks_autocomplete')
 
@@ -34,9 +36,11 @@ class Autocomplete {
 
     this.autocompleteElement = autocompleteElement
     this.autocompleteElement.appendChild(inputElement)
+    this.autocompleteElement.appendChild(spinnerElement)
 
     this.inputElement = inputElement
     this.autocompleteElement = autocompleteElement
+    this.spinnerElement = spinnerElement
   }
 
   makeUrl () {
@@ -48,23 +52,26 @@ class Autocomplete {
 
   makeRequest (params) {
     const url = this.makeUrl() + this.queryString(params)
-    const headers = new Headers({
-      Authorization: `Token ${this.options.projectToken}`,
-      'Content-Type': 'application/json'
-    })
+    const headers = new Headers({ 'Content-Type': 'application/json' })
 
     this.currentRequest?.abort()
     this.currentRequest = makeGetRequest(url, {
       method: 'GET',
       headers
     })
+
+    this.#showSpinner(true)
     
     this.currentRequest.ready
       .then(response => response.json())
       .then(data => {
         this.results = data
-        this.renderList(data)
-      }).catch(console.error)
+        this.#renderList(data)
+      })
+      .catch(console.error)
+      .finally(_ => {
+        this.#showSpinner(false)
+      })
 
   }
   
@@ -84,6 +91,13 @@ class Autocomplete {
     }
   }
 
+  #showSpinner (isVisible) {
+    this.spinnerElement.style.display = isVisible 
+      ? 'inline'
+      : 'none'
+
+  }
+
   getObjectParams () {
     const filterParams = Object.fromEntries(
       API_PARAMETERS.map(param => [param, this.options[param]])
@@ -98,7 +112,7 @@ class Autocomplete {
     return `?${paramString}`
   }
 
-  createRow (item) {
+  #createRow (item) {
     const template = document.createElement('template')
 
     template.innerHTML = `
@@ -109,26 +123,26 @@ class Autocomplete {
       </li>
     `.trim()
 
-    template.content.firstChild.addEventListener('click', () => { this.selectItem(item) })
+    template.content.firstChild.addEventListener('click', () => { this.#selectItem(item) })
 
     return template.content.firstChild
   }
 
-  selectItem (item) {
+  #selectItem (item) {
     this.results = [item]
     this.inputElement.value = item.label
     this.options.events.select(item)
-    this.renderList (this.results)
+    this.#renderList (this.results)
   }
 
-  renderList (result) {
+  #renderList (result) {
     const listElement = document.createElement('ul')
     const rowElements = []
 
     listElement.classList.add('taxonworks_autocomplete__list')
 
     result.forEach(item => {
-      const row = this.createRow(item)
+      const row = this.#createRow(item)
 
       rowElements.push(row)
       listElement.append(row)
@@ -150,8 +164,9 @@ class Autocomplete {
     return options
   }
 
-  static discover (selector, options) {
-    const elements = document.querySelectorAll(selector)
+  static discover (selector) {
+    const tag = selector || '[data-taxonworks-autocomplete="true"]'
+    const elements = document.querySelectorAll(tag)
     const elementsList = [...elements]
   
     return elementsList.map(element => 
