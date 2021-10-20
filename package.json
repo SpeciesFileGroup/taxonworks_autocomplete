@@ -1,7 +1,7 @@
 {
   "name": "@sfgrp/tw-autocomplete",
   "description": "A embedable javascript autocomplete that references a TaxonWorks API",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "files": ["dist"],
   "main": "./dist/tw-autocomplete.umd.js",
   "module": "./dist/tw-autocomplete.es.js",

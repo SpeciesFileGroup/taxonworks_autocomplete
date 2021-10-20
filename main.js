@@ -9,8 +9,8 @@ codeElement.innerText = `
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sfgrp/tw-autocomplete@0.0.1/dist/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@sfgrp/tw-autocomplete@0.0.1/dist/tw-autocomplete.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sfgrp/tw-autocomplete/dist/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@sfgrp/tw-autocomplete/dist/tw-autocomplete.umd.min.js"></script>
     <title>TaxonWorks Autocomplete</title>
   </head>
   <body>
