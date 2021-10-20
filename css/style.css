@@ -1,0 +1,55 @@
+#app {
+  position: fixed;
+  max-width: 1400px;
+  min-width: 800px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+
+form {
+  width: 1400px;
+}
+
+.example_section {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  position: relative;
+  background-color: #fff;
+  margin: 0 auto;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  z-index: 1;
+}
+
+.example_section__autocomplete {
+  padding: 1rem;
+  
+  border-right: 1px solid #ddd;
+}
+
+pre {
+  margin: 0;
+  padding: 0 20px 0 20px;
+  overflow-wrap: break-word;
+  overflow-x: auto;
+}
+
+button {
+  height: 28px;
+  border-radius: .6rem;
+  border: 1px solid #ddd;
+  background-color: #10B981;
+  color: #FFFFFF;
+}
+
+.display-inline {
+  display: inline-block;
+}

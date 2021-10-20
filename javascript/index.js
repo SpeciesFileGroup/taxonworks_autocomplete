@@ -1,9 +1,5 @@
-import './src/assets/stylesheets/tw-autocomplete.css'
-import './src/assets/stylesheets/style.css'
-import TWAutocomplete from './src/autocomplete.js'
-
-const codeElement = document.querySelector('pre')
-codeElement.innerText = `
+const example1 = document.querySelector('#example-code-1')
+const example1Code = `
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -30,12 +26,15 @@ codeElement.innerText = `
           data-name="taxon_name_id[]"
           data-project-token="xQ9bKrhfQtHYfro9t6YY0A"
           data-url="https://sfg.taxonworks.org/"
-          placeholder="Search..."
+          placeholder="Search a taxon name..."
         >
       </div>
       <button type="submit">
-        JSON
+        SEND
       </button>
     </form>
   </body>
 </html>`
+
+
+example1.innerHTML = Prism.highlight(example1Code, Prism.languages.html, 'html');
