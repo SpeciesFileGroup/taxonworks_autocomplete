@@ -1,4 +1,22 @@
-.taxonworks_autocomplete {
-  margin: 0 auto;
-  width: 500px;
+#app {
+
+}
+
+body {
+  margin: 0;
+}
+
+.example_section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.example_section__autocomplete {
+  padding: 1rem;
+}
+
+pre {
+  margin: 0;
+  padding: 1rem;
+  background-color: #FAFAFA;
 }

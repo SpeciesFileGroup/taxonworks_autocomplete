@@ -4,19 +4,40 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
+    <title>TaxonWorks Autocomplete</title>
   </head>
   <body>
     <div id="app">
-      <input 
-        data-taxonworks-autocomplete="true"
-        data-resource="taxon_names"
-        data-project-id="16"
-        data-name="taxon_name_id"
-        data-token="wTCICJSH-1-Cb8D-6zMEvg"
-        data-url="http://localhost:3000"
-        placeholder="Search..."
-      >
+      <div class="example_section">
+        <div class="example_section__autocomplete">
+          <h2>Example 1. Taxon name form</h2>
+          <span>Search a taxon name and get JSON object from INHS project</span>
+            <form 
+              action="https://sfg.taxonworks.org/api/v1/taxon_names.json"
+              method="get"
+              target="_blank"
+            >
+            <div>
+              <input
+                hidden
+                name="project_token"
+                value="xQ9bKrhfQtHYfro9t6YY0A">
+              <input 
+                data-taxonworks-autocomplete="true"
+                data-resource="taxon_names"
+                data-name="taxon_name_id[]"
+                data-project-token="xQ9bKrhfQtHYfro9t6YY0A"
+                data-url="https://sfg.taxonworks.org/"
+                placeholder="Search..."
+              >
+            </div>
+            <button type="submit">
+              JSON
+            </button>
+          </form>
+        </div>
+        <pre></pre>
+      </div>
     </div>
     <script type="module" src="/main.js"></script>
   </body>
