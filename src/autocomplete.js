@@ -1,4 +1,4 @@
-import { makeGetRequest } from './request.js'
+import { makeGetRequest } from './utils/request.js'
 import { DEFAULT_OPTIONS } from './constants/options.js'
 import { ATTRIBUTES } from './constants/attributes.js'
 import { API_PARAMETERS } from './constants/parameters.js'
@@ -14,6 +14,8 @@ export default class TWAutocomplete {
     if (element) {
       this.setOptions(options)
       this.init(element)
+    } else {
+      console.error("Element doesn't exist")
     }
   }
 
@@ -68,16 +70,9 @@ export default class TWAutocomplete {
 
   makeRequest (params) {
     const url = this.makeUrl() + this.queryString(params)
-    const headers = new Headers({ 'Content-Type': 'application/json' })
-
-    this.currentRequest?.abort()
-    this.currentRequest = makeGetRequest(url, {
-      method: 'GET',
-      headers
-    })
 
     this.#showSpinner(true)
-    
+    this.currentRequest = makeGetRequest(url)    
     this.currentRequest.ready
       .then(response => response.json())
       .then(data => {
@@ -93,7 +88,9 @@ export default class TWAutocomplete {
   handleInput (event) {
     const value = event.target.value
 
+    this.currentRequest?.abort()
     clearTimeout(this.requestTimeout)
+
     if (value.length >= this.options.threshold) {
       this.requestTimeout = setTimeout(() => {
         const params = Object.entries({ 
@@ -196,6 +193,16 @@ export default class TWAutocomplete {
     )
   }
 }
+
+TWAutocomplete.autoDiscover = true
+
+TWAutocomplete._autoDiscoverFunction = () => {
+  if (TWAutocomplete.autoDiscover) {
+    return TWAutocomplete.discover()
+  }
+}
+
+window.addEventListener('DOMContentLoaded', TWAutocomplete._autoDiscoverFunction)
 
 export {
   TWAutocomplete

@@ -1,4 +1,5 @@
-import './style.css'
+import './src/assets/stylesheets/tw-autocomplete.css'
+import './src/assets/stylesheets/style.css'
 import { TWAutocomplete } from './src/autocomplete.js'
 
 const autocomplete = new TWAutocomplete('#taxonworks-autocomplete', {
@@ -10,5 +11,3 @@ const autocomplete = new TWAutocomplete('#taxonworks-autocomplete', {
     select: item => { console.log(item) }
   }
 })
-
-TWAutocomplete.discover()

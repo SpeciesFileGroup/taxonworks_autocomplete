@@ -1,6 +1,5 @@
 .taxonworks_autocomplete {
   position: relative;
-  width: 500px;
 }
 
 .taxonworks_autocomplete__input {
@@ -26,11 +25,12 @@
   z-index: 1;
   box-sizing: border-box;
   max-height: 250px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 .taxonworks_autocomplete__row {
   padding: .3rem .5rem;
+  cursor: pointer;
 }
 
 .taxonworks_autocomplete__row:hover {
