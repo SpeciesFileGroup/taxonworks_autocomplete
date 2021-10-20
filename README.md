@@ -1,34 +1,36 @@
 # taxonworks_autocomplete
 A embedable javascript autocomplete that references a TaxonWorks API
 
-## How to run on localhost
+## Install
 
-First install dependencies:
-
-```sh
-npm install
-```
-
-To run in dev mode mode:
-
-```sh
-npm run dev
-```
-
-Then go to http://localhost:3000
-
-
-## Installation
-
-With NPM
+### Package manager
+You can install the latest version with the npm CLI command:
 
 ```bash
 npm install @sfgrp/tw-autocomplete
 ```
+As an alternative you can use the Yarn CLI command:
+```bash
+npm install @sfgrp/tw-autocomplete
+```
 
-## Quick start
+```javascript
+import TWAutocomplete from '@sfgrp/tw-autocomplete'
+import '@sfgrp/tw-autocomplete/dist/style.css'
 
-there are two ways to setup TWAutocomplete. The easiest way is to let TWAutocomplete auto discover your inputs automatically. For that, you simply need to provide a data attribute to your input.
+const autocomplete = new TWAutocomplete('#taxonworks-autocomplete', options)
+```
+### CDN
+You can copy and paste the following tags into your HTML file.
+
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sfgrp/tw-autocomplete@0.0.1/dist/style.css">
+<script src="https://cdn.jsdelivr.net/npm/@sfgrp/tw-autocomplete@0.0.1/dist/tw-autocomplete.umd.min.js"></script>
+```
+
+## Setup
+There are two ways to setup TWAutocomplete. The easiest way is to let TWAutocomplete auto discover your inputs automatically. For that, you simply need to provide a data attribute to your input.
 
 ### Declarative
 
@@ -47,7 +49,7 @@ To pass the options you need to add the prefix `data-` and write the option in k
 ```
 
 ### Imperative
-You can initialize a it by instantiating the TWAutocomplete class
+You can initialize it by instantiating the TWAutocomplete class
 
 
 ```html
@@ -58,14 +60,13 @@ You can initialize a it by instantiating the TWAutocomplete class
 ```
 ```javascript
 import TWAutocomplete from '@sfgrp/tw-autocomplete'
-import '@sfgrp/tw-autocomplete'
+import '@sfgrp/tw-autocomplete/dist/style.css'
 
 const autocomplete = new TWAutocomplete('#taxonworks-autocomplete', options)
 ```
 
 
 ### Options object
-To set each property in the declarative initialization way, just add `data-` and write each option in kebab-case
 ```javascript
 {
   project_id: 16,             // project id
