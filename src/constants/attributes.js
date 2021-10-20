@@ -3,5 +3,6 @@ export const ATTRIBUTES = [
   'project_id',
   'project_token',
   'url',
-  'resource'
+  'resource',
+  'name'
 ]

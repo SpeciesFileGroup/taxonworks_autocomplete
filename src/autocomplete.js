@@ -25,22 +25,38 @@ export default class TWAutocomplete {
   }
 
   init (inputElement) {
+    this.inputElement = inputElement
+    this.spinnerElement = createSpinnerElement()
+    this.hiddenInputElement = this.#createHiddenInput()
+    this.autocompleteElement = this.#createAutocompleteContainer()
+
+    inputElement.classList.add('taxonworks_autocomplete__input')
+    inputElement.parentElement.append(this.autocompleteElement)
+    inputElement.addEventListener('input', this.handleInput.bind(this))
+
+    this.autocompleteElement.appendChild(this.inputElement)
+    this.autocompleteElement.appendChild(this.spinnerElement)
+    this.autocompleteElement.appendChild(this.hiddenInputElement)
+  }
+
+  #createHiddenInput () {
+    const hiddenInputElement = document.createElement('input')
+    const inputName = this.options.name
+      ? this.options.name
+      : `${this.options.resource}_id`
+
+    hiddenInputElement.setAttribute('type', 'hidden')
+    hiddenInputElement.setAttribute('name', inputName)
+
+    return hiddenInputElement
+  }
+
+  #createAutocompleteContainer () {
     const autocompleteElement = document.createElement('div')
-    const spinnerElement = createSpinnerElement()
 
     autocompleteElement.classList.add('taxonworks_autocomplete')
 
-    inputElement.classList.add('taxonworks_autocomplete__input')
-    inputElement.parentElement.append(autocompleteElement)
-    inputElement.addEventListener('input', this.handleInput.bind(this))
-
-    this.autocompleteElement = autocompleteElement
-    this.autocompleteElement.appendChild(inputElement)
-    this.autocompleteElement.appendChild(spinnerElement)
-
-    this.inputElement = inputElement
-    this.autocompleteElement = autocompleteElement
-    this.spinnerElement = spinnerElement
+    return autocompleteElement
   }
 
   makeUrl () {
@@ -72,7 +88,6 @@ export default class TWAutocomplete {
       .finally(_ => {
         this.#showSpinner(false)
       })
-
   }
   
   handleInput (event) {
@@ -95,7 +110,6 @@ export default class TWAutocomplete {
     this.spinnerElement.style.display = isVisible 
       ? 'inline'
       : 'none'
-
   }
 
   getObjectParams () {
@@ -132,26 +146,34 @@ export default class TWAutocomplete {
     this.results = [item]
     this.inputElement.value = item.label
     this.options.events.select(item)
+    this.hiddenInputElement.value = item.id
     this.#renderList (this.results)
   }
 
-  #renderList (result) {
+  #renderList (list) {
+    const rowElements = list.map(item => this.#createRow(item))
     const listElement = document.createElement('ul')
-    const rowElements = []
 
     listElement.classList.add('taxonworks_autocomplete__list')
 
-    result.forEach(item => {
-      const row = this.#createRow(item)
-
-      rowElements.push(row)
-      listElement.append(row)
-    })
+    if (rowElements.length) {
+      listElement.append(...list.map(item => this.#createRow(item)))
+    } else {
+      listElement.append(this.#emptyRow())
+    }
 
     this.listElement?.remove()    
     this.listElement = listElement
-
     this.autocompleteElement.append(this.listElement)
+  }
+
+  #emptyRow () {
+    const li = document.createElement('li')
+
+    li.classList.add('taxonworks_autocomplete__row')
+    li.innerText = '-- None --'
+
+    return li
   }
 
   static getOptionsFromElement (element) {
