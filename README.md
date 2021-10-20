@@ -11,7 +11,7 @@ npm install @sfgrp/tw-autocomplete
 ```
 As an alternative you can use the Yarn CLI command:
 ```bash
-npm install @sfgrp/tw-autocomplete
+yarn add vue
 ```
 
 ```javascript
